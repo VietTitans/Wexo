@@ -1,0 +1,25 @@
+{
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ConnectionString": "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YmJjMDkyN2E2Mjk5NmNhZGM4MDM4YjAyMjdlOTlhMCIsIm5iZiI6MTc0MzE5MDEwMy4wNjQsInN1YiI6IjY3ZTZmODU3MTA3MWQzNTA5MTI1ZDBlNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fVOKWXghisFyqd_X2iTpdaiOlhXeYR8sAarnNNqnli0"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5068"
+    },
+    "https": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ConnectionString": "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YmJjMDkyN2E2Mjk5NmNhZGM4MDM4YjAyMjdlOTlhMCIsIm5iZiI6MTc0MzE5MDEwMy4wNjQsInN1YiI6IjY3ZTZmODU3MTA3MWQzNTA5MTI1ZDBlNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fVOKWXghisFyqd_X2iTpdaiOlhXeYR8sAarnNNqnli0"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7252;http://localhost:5068"
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json"
+}
