@@ -6,28 +6,20 @@
 }
 
 <div class="text-center">
-	<h1 class="display-4">Trending</h1>
+	<h1 class="display-4">Movies</h1>
 </div>
 
 @* From all the genres in List<Genre>, keep the ones whose Id is in the allowedGenreIds array. *@
-@foreach (var genre in Model.Where(g => allowedGenreIds.Contains(g.Id))) 
-{
+@foreach (var genre in Model) 
+{ 
 	<h2>@genre.Name (@genre.TotalMovieCount) <button id="btnGenre"> > </button></h2>
 	<div class="item-card">
 		<ul>
-			@foreach (var item in genre.Items.Take(5)) //Limit display to 5 movies in list
+			@foreach (var item in genre.Items.Take(6)) //Limit the number of movies displayed
 			{
 				if (item != null)
 				{
 					<ul>
-						@if (item is Movie movie)
-						{
-							<strong>@movie.Title</strong>
-						}
-						else if (item is TVSerie serie)
-						{
-							<strong>@serie.Title</strong>
-						}
 						<img src="@($"https://image.tmdb.org/t/p/w500{@item.PosterPath}")" alt="@item.Title" />
 						<strong>@item.Title </strong>
 					</ul>

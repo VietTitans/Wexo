@@ -15,7 +15,6 @@ public class HomeController : Controller
     public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
-
     }
 
     public IActionResult Privacy()
@@ -34,9 +33,9 @@ public class HomeController : Controller
         var genres = new List<Genre>();
         var medias = new List<Media>();
 
-
         //****************** GET GenreId in movie category ******************
         //URI: https://api.themoviedb.org/3/genre/movie/list
+
         var genreListResponse = await GetResponseByUri("genre/movie/list");
 
         if (genreListResponse.IsSuccessful && genreListResponse.Content != null)
@@ -46,45 +45,17 @@ public class HomeController : Controller
         }
 
         //****************** Get total movie count in a genre inorder display total movie count ******************
-        await GetTotalMovieCountByGenre(genres);
+        genres = await GetMoviesByGenre(genres);
 
-        //****************** Get all movies within a genre******************
-        //URI: https://api.themoviedb.org/3/discover/movie
-        var response = await GetResponseByUri("/discover/movie");
-
-        if (response.IsSuccessful && response.Content != null)
-        {
-            var movieResponse = JsonConvert.DeserializeObject<MovieResponse>(response.Content);
-            medias = movieResponse.Results;
-        }
-
-        //****************** Adding movies and series into their genres ******************
-        foreach (var media in medias)
-        {
-            foreach (var genre in genres)
-            {
-                //Looping through the media.genreIds list and check if contains genre.id
-                bool idMatch = media.GenreIds.Contains(genre.Id);
-
-                //Check for null and check if the name media.Genre and genre.Name are equal to each other.
-                //StringComparision makes the string case insensitive.
-                bool nameMatch = !string.IsNullOrWhiteSpace(media.Genre) &&
-                                 string.Equals(media.Genre, genre.Name, StringComparison.OrdinalIgnoreCase);
-
-                if (idMatch || nameMatch)
-                {
-                    genre.Items.Add(media);
-                }
-            }
-
-        }
         return View(genres);
     }
 
-    private static async Task GetTotalMovieCountByGenre(List<Genre> genres)
+    private static async Task<List<Genre>> GetMoviesByGenre(List<Genre> genres)
     {
         //A list of target genres are defined by genre id
         List<int> allowedGenreIds = new() { 28, 35, 53, 10752, 10749, 18, 80, 99, 27 };
+
+        var resultGenres = new List<Genre>();
 
         foreach (var genreId in allowedGenreIds)
         {
@@ -99,7 +70,7 @@ public class HomeController : Controller
 
                 if (genreInfo != null)
                 {
-                    genres.Add(new Genre
+                    resultGenres.Add(new Genre
                     {
                         Id = genreId,
                         Name = genreInfo.Name,
@@ -110,6 +81,7 @@ public class HomeController : Controller
             }
         }
 
+        return resultGenres;
     }
     private static async Task<RestResponse> GetResponseByUri(string uri)
     {
