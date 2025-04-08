@@ -31,7 +31,6 @@ public class HomeController : Controller
     public async Task<IActionResult> Index()
     {
         var genres = new List<Genre>();
-        var medias = new List<Media>();
 
         //****************** GET GenreId in movie category ******************
         //URI: https://api.themoviedb.org/3/genre/movie/list
@@ -44,7 +43,7 @@ public class HomeController : Controller
             genres = result.Genres;
         }
 
-        //****************** Get total movie count in a genre inorder display total movie count ******************
+        //****************** Get genre stats ******************
         genres = await GetMoviesByGenre(genres);
 
         return View(genres);
@@ -70,6 +69,7 @@ public class HomeController : Controller
 
                 if (genreInfo != null)
                 {
+                    //Create genre object with the all the statistics
                     resultGenres.Add(new Genre
                     {
                         Id = genreId,
