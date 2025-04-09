@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Webapplication.Models.Media>
+
+@{
+	ViewData["Title"] = "MoviesByGenreId";
+}
+
+<h1>Movies</h1>
+@foreach (var movie in Model)
+{
+	<div class="item-card">
+		@if (movie != null)
+		{
+			<ul>
+				<a asp-controller="Movie" asp-action="Details" asp-route-id="@movie.Id">
+					<img src="@($"https://image.tmdb.org/t/p/w500{@movie.PosterPath}")" alt="@movie.Title" />
+				</a>
+				<strong>@movie.Title </strong>
+				<p>@movie.Description</p>
+				@Html.ActionLink("Details", "Details", new
+					{
+						/* id=item.PrimaryKey */
+					})
+			</ul>
+		}
+	</div>
+}

@@ -68,7 +68,7 @@ public class HomeController : Controller
                 var genreInfo = genres.FirstOrDefault(g => g.Id == genreId);
 
                 if (genreInfo != null)
-                {
+                {   
                     //Create genre object with the all the statistics
                     resultGenres.Add(new Genre
                     {
