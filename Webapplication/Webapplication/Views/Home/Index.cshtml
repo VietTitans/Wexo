@@ -17,20 +17,20 @@
 			<button id="btnGenre" type="submit"> > </button>
 		</h2>
 	</form>
-	<div class="item-card">
-		<ul>
-			@foreach (var item in genre.Items.Take(6)) //Limit the number of movies displayed
+	<div class="movie-grid">
+		@foreach (var item in genre.Items.Take(6)) //Limit the number of movies displayed
+		{
+			if (item != null)
 			{
-				if (item != null)
-				{
-					<ul>
-						<a asp-controller="Movie" asp-action="Details" asp-route-id="@item.Id">
-							<img src="@($"https://image.tmdb.org/t/p/w500{@item.PosterPath}")" alt="@item.Title" />
-						</a>
+				<div class="movie-card">
+					<a asp-controller="Movie" asp-action="Details" asp-route-id="@item.Id">
+						<img class="movie-poster" src="@($"https://image.tmdb.org/t/p/w500{@item.PosterPath}")" alt="@item.Title" />
+					</a>
+					<div class="movie-info">
 						<strong>@item.Title </strong>
-					</ul>
-				}
+					</div>
+				</div>
 			}
-		</ul>
+		}
 	</div>
 }

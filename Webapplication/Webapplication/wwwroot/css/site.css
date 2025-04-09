@@ -1,54 +1,29 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
+    background-color: #0a0a0a;
+    color: #e0e0e0;
 }
 
 body {
-  margin-bottom: 60px;
-}
-
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
-}
-
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
-}
-
-.item-card {
-    margin: 20px 0;
-}
-
-.item-card ul {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid */
-    gap: 16px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.item-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
+    margin-bottom: 60px;
+    background-color: #0a0a0a;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 #btnGenre {
@@ -62,7 +37,66 @@ body {
     transition: background-color 0.3s ease;
 }
 
-#btnGenre:hover {
-    background-color: #B81D13;
+    #btnGenre:hover {
+        background-color: #B81D13;
+    }
+
+.page-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #fff;
+    text-align: center;
 }
 
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    background-color: #0f0f0f;
+    border-top: 1px solid #222;
+    justify-items: center;
+}
+
+.movie-card {
+    background-color: #121212;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    align-items: center;
+    width: 100%
+}
+
+.movie-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(229, 9, 20, 0.2);
+}
+
+.movie-poster {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-bottom: 1px solid #222;
+}
+
+.movie-info {
+    padding: 10px;
+    color: #d0d0d0;
+}
+
+.movie-title {
+    font-size: 1rem;
+    margin: 0;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.movie-description {
+    font-size: 0.85rem;
+    color: #aaaaaa;
+    margin-top: 6px;
+    max-height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
