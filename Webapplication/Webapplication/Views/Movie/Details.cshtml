@@ -10,9 +10,9 @@
 	</div>
 
 	<div class="info">
-		<h1><strong>@Model.Title</strong></h1>
+		<h1 class="title"><strong>@Model.Title</strong></h1>
 		<p><strong>Description:</strong> <br/>@Model.Overview</p>
-		<p><strong>Release Date:</strong><br /> @Model.ReleaseDate<p>
+		<p><strong>Release year:</strong><br /> @DateTime.Parse(Model.ReleaseDate).Year<p>
 		<p><strong>Genre:</strong><br /> 
 		<p>@string.Join(", ", Model.Genres.Select(g=> g.Name))</p>
 		@* <p><strong>Actors:</strong><br /> @Model.Actor<p> *@
