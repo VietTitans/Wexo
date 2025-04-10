@@ -1,60 +1,36 @@
-﻿@model Webapplication.Models.Media
+﻿@model Webapplication.Models.MediaDetailsResponse
 
 @{
 	ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-<div>
-	<div class="hero-banner" style="backdrop-image: url@($"https://image.tmdb.org/t/p/w500{@Model.BackdropPath}")" alt="@Model.Title">
-		<div class="overlay">
-			<div class="backdrop-content">
-				<hr />
-				<dl class="row">
-					<dd class="col-sm-10">
-						@Html.DisplayFor(model => model.Title)
-					</dd>
-					<dd class="col-sm-10">
-						@Html.DisplayFor(model => model.OriginalTitle)
-					</dd>
-					<dd class="col-sm-10">
-						@Html.DisplayFor(model => model.Description)
-					</dd>
-					<dd class="col-sm-10">
-						<img src="@($"https://image.tmdb.org/t/p/w500{@Model.PosterPath}")" alt="@Model.Title" />
-					</dd>
-					<dd class="col-sm-10">
-						@Html.DisplayFor(model => model.MediaType)
-					</dd>
-					<dd class="col-sm-10">
-						@Html.DisplayFor(model => model.Adult)
-					</dd>
-					<dd class="col-sm-10">
-						@Html.DisplayFor(model => model.OriginalLanguage)
-					</dd>
-					<dd class="col-sm-10">
-						@Html.DisplayFor(model => model.Popularity)
-					</dd>
-					<dd class="col-sm-10">
-						@Html.DisplayFor(model => model.ReleaseDate)
-					</dd>
-					<dd class="col-sm-10">
-						@Html.DisplayFor(model => model.Video)
-					</dd>
-					<dd class="col-sm-10">
-						@Html.DisplayFor(model => model.VoteAverage)
-					</dd>
-					<dd class="col-sm-10">
-						@Html.DisplayFor(model => model.VoteCount)
-					</dd>
-					<dd class="col-sm-10">
-						@Html.DisplayFor(model => model.Genre)
-					</dd>
-				</dl>
-			</div>
-		</div>
+<div class="details-container" style="background-image: url('@($"https://image.tmdb.org/t/p/w500{Model.BackdropPath}")'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+	<div class="poster">
+		<img src="@($"https://image.tmdb.org/t/p/w500{Model.PosterPath}")" alt="@Model.Title" />
+	</div>
+
+	<div class="info">
+		<h1><strong>@Model.Title</strong></h1>
+		<p><strong>Description:</strong> <br/>@Model.Overview</p>
+		<p><strong>Release Date:</strong><br /> @Model.ReleaseDate<p>
+		<p><strong>Genre:</strong><br /> 
+		<p>@string.Join(", ", Model.Genres.Select(g=> g.Name))</p>
+		@* <p><strong>Actors:</strong><br /> @Model.Actor<p> *@
+		@* <p><strong>Directors:</strong><br /> @Model.Directors<p> *@
+		
+		
+		<p><strong>Language:</strong><br /> @Model.OriginalLanguage</p>
+		<p><strong>Popularity:</strong><br /> @Model.Popularity</p>
+				@if (Model.Video)
+				{
+			<p><strong>Video:</strong><br /> @(Model.Video)</p>
+				}
+		<p><strong>Vote Average:</strong><br /> @Model.VoteAverage</p>
+		<p><strong>Vote Count:</strong><br /> @Model.VoteCount</p>
 	</div>
 </div>
-<div>
-	<a asp-action="Index">Back to List</a>
+
+<div class="back-link">
+	@* <a asp-action="@backUrl" class="btn-back">← Back to List</a> *@ @*TODO: Implement back to list button*@
 </div>
+

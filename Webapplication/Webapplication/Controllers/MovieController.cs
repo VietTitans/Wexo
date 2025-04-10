@@ -7,10 +7,10 @@ namespace Webapplication.Controllers
 {
     public class MovieController : Controller
     {
-        //public IActionResult Index()
-        //{
-        //    return View();
-        //}
+        public IActionResult Index()
+        {
+            return View("/");
+        }
 
         [HttpPost]
         //Uri: /Movie/Genre/{genreId}
@@ -34,15 +34,16 @@ namespace Webapplication.Controllers
 
         [HttpGet]
         //Movie/Details/{id}
-        public async Task<IActionResult> Details(int itemId)
+        public async Task<IActionResult> Details(int id)
         {
-            Media movieDetails = null;
-            var detailsResponse = await GetResponseByUri($"/movie/{itemId}");
-            //var detailsResponse = await GetResponseByUri($"/movie/1229730");
+
+            MediaDetailsResponse movieDetails = null;
+            var detailsResponse = await GetResponseByUri($"/movie/{id}");
 
             if (detailsResponse.IsSuccessful && detailsResponse.Content != null)
             {
-                var result = JsonConvert.DeserializeObject<Media>(detailsResponse.Content);
+                var result = JsonConvert.DeserializeObject<MediaDetailsResponse>(detailsResponse.Content);
+
                 movieDetails = result;
             }
             else

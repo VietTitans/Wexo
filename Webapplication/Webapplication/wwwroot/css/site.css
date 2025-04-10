@@ -26,6 +26,38 @@ body {
     font-family: 'Segoe UI', sans-serif;
 }
 
+/*Style the navbar*/
+.custom-navbar {
+    background-color: #111 !important;
+    border-bottom: 1px solid #222;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.navbar-brand {
+    color: #E50914 !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+    .navbar-brand:hover {
+        color: #B81D13 !important;
+    }
+
+.navbar-nav .nav-link {
+    color: #e0e0e0 !important;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+    .navbar-nav .nav-link:hover {
+        color: #ffffff !important;
+    }
+
+.navbar-toggler {
+    border-color: #444;
+}
+
+/*Style show more movies button*/
 #btnGenre {
     background-color: #E50914;
     color: white;
@@ -48,6 +80,7 @@ body {
     text-align: center;
 }
 
+/*Style the movie cards*/
 .movie-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -68,10 +101,10 @@ body {
     width: 100%
 }
 
-.movie-card:hover {
+    .movie-card:hover {
         transform: scale(1.05);
         box-shadow: 0 0 20px rgba(229, 9, 20, 0.2);
-}
+    }
 
 .movie-poster {
     width: 100%;
@@ -99,4 +132,82 @@ body {
     max-height: 60px;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+/*Movie details styling*/
+.details-container {
+    display: flex;
+    gap: 30px;
+    padding: 20px;
+    flex-wrap: wrap;
+}
+
+.poster img {
+    max-width: 300px;
+    border-radius: 12px;
+}
+
+.info {
+    max-width: 600px;
+}
+
+    .info p {
+        margin-bottom: 10px;
+        font-size: 0.95rem;
+    }
+
+.btn-back {
+    display: inline-block;
+    margin: 20px;
+    color: #e50914;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+    .btn-back:hover {
+        color: #fff;
+    }
+
+/*Insure font stands out from the backdrop image*/
+.details-container {
+    padding: 20px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    border-radius: 10px;
+    margin: 0 auto;
+    max-width: 1200px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.details-container .info {
+    position: relative;
+    z-index: 2; /* Ensure the text is above the overlay */
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.85); /* Dark background for the text area */
+    border-radius: 8px;
+}
+
+.details-container .info h1 {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.details-container .info p {
+    color: #ddd;
+    font-size: 1.2rem;
+}
+
+.poster img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.info p {
+    line-height: 1.6;
 }

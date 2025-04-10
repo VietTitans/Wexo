@@ -7,3 +7,4 @@ public class Genre
     public List<Media>? Items { get; set; } = new List<Media>();
     public int TotalMovieCount { get; set; }
 }
+    

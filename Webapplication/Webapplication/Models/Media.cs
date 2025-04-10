@@ -38,7 +38,7 @@ public class Media
     public double Popularity { get; set; }
 
     [JsonProperty("release_date")]
-    public string ReleaseDate { get; set; } //TODO: Maybe change to release year
+    public string ReleaseDate { get; set; } 
 
     [JsonProperty("video")]
     public bool Video { get; set; }
