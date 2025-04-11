@@ -33,7 +33,7 @@ namespace Webapplication.Controllers
         }
 
         [HttpGet]
-        //Movie/Details/{id}
+        //Uri: /Movie/Details/{id}
         public async Task<IActionResult> Details(int id)
         {
 

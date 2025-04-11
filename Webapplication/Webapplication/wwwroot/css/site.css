@@ -86,7 +86,6 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 20px;
     padding: 20px;
-    background-color: #0f0f0f;
     border-top: 1px solid #222;
     justify-items: center;
 }

@@ -17,11 +17,6 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Privacy()
-    {
-        return View();
-    }
-
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
@@ -30,11 +25,12 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var genres = new List<Genre>();
+        //Index method is called when the program launches. 
 
         //****************** GET GenreId in movie category ******************
         //URI: https://api.themoviedb.org/3/genre/movie/list
 
+        var genres = new List<Genre>();
         var genreListResponse = await GetResponseByUri("genre/movie/list");
 
         if (genreListResponse.IsSuccessful && genreListResponse.Content != null)
