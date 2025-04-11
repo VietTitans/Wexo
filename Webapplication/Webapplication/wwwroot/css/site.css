@@ -212,6 +212,10 @@ body {
     font-size: 1.2rem;
 }
 
+.details-container .info strong {
+    color: #f5c518;
+}    
+
 .poster img {
     max-width: 100%;
     border-radius: 10px;
@@ -219,4 +223,68 @@ body {
 
 .info p {
     line-height: 1.6;
+}
+
+/*Styling actor cards*/
+.actors-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.actor {
+    display: inline-block;
+    text-align: center;
+    margin: 0.5rem;
+    width: 90px;
+}
+.actor img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.actor-name {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.6rem;
+    color: white;
+    word-wrap: break-word;
+}
+
+/*Styling director cards*/
+.directors-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.director {
+    display: inline-block;
+    text-align: center;
+    margin: 0.5rem;
+    width: 90px;
+}
+
+.director img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.director-name {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.75rem;
+    max-width: 80px;
+    text-align: center;
+    white-space: normal;
+    color: white;
+    word-wrap: break-word;
 }

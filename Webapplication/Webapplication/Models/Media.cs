@@ -5,49 +5,49 @@ namespace Webapplication.Models;
 public class Media
 {
     [JsonProperty("backdrop_path")]
-    public string BackdropPath { get; set; }
+    public string BackdropPath { get; init; }
 
     [JsonProperty("id")]
-    public int Id { get; set; }
+    public int Id { get; init; }
 
     [JsonProperty("title")]
-    public string Title { get; set; }
+    public string Title { get; init; }
 
     [JsonProperty("original_title")]
-    public string OriginalTitle { get; set; }
+    public string OriginalTitle { get; init; }
 
     [JsonProperty("overview")]
-    public string Description { get; set; }
+    public string Description { get; init; }
 
     [JsonProperty("poster_path")]
-    public string PosterPath { get; set; }
+    public string PosterPath { get; init; }
 
     [JsonProperty("media_type")]
-    public string MediaType { get; set; }
+    public string MediaType { get; init; }
 
     [JsonProperty("adult")]
-    public bool Adult { get; set; }
+    public bool Adult { get; init; }
 
     [JsonProperty("original_language")]
-    public string OriginalLanguage { get; set; }
+    public string OriginalLanguage { get; init; }
 
     [JsonProperty("genre_ids")]
-    public List<int> GenreIds { get; set; }
+    public List<int> GenreIds { get; init; }
 
     [JsonProperty("popularity")]
-    public double Popularity { get; set; }
+    public double Popularity { get; init; }
 
     [JsonProperty("release_date")]
-    public string ReleaseDate { get; set; } 
+    public string ReleaseDate { get; init; } 
 
     [JsonProperty("video")]
-    public bool Video { get; set; }
+    public bool Video { get; init; }
 
     [JsonProperty("vote_average")]
-    public double VoteAverage { get; set; }
+    public double VoteAverage { get; init; }
 
     [JsonProperty("vote_count")]
-    public int VoteCount { get; set; }
+    public int VoteCount { get; init; }
 
-    public string Genre { get; set; }
+    public string Genre { get; init; }
 }

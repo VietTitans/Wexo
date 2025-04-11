@@ -2,9 +2,9 @@
 
 public class Genre
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public List<Media>? Items { get; set; } = new List<Media>();
-    public int TotalMovieCount { get; set; }
+    public int Id { get; init; }
+    public string Name { get; init; }
+    public List<Media>? Items { get; init; } = new List<Media>();
+    public int TotalMovieCount { get; init; }
 }
     

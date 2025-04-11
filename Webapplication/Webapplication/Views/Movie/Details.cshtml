@@ -15,22 +15,36 @@
 		<p><strong>Release year:</strong><br /> @DateTime.Parse(Model.ReleaseDate).Year<p>
 		<p><strong>Genre:</strong><br /> 
 		<p>@string.Join(", ", Model.Genres.Select(g=> g.Name))</p>
-		@* <p><strong>Actors:</strong><br /> @Model.Actor<p> *@
-		@* <p><strong>Directors:</strong><br /> @Model.Directors<p> *@
-		
-		
-		<p><strong>Language:</strong><br /> @Model.OriginalLanguage</p>
-		<p><strong>Popularity:</strong><br /> @Model.Popularity</p>
-				@if (Model.Video)
+		@* Show actors *@
+		<p><strong>Actors:</strong><br />
+			<div class="actors-container">
+				@foreach (var actor in Model.Actors)
 				{
-			<p><strong>Video:</strong><br /> @(Model.Video)</p>
+					<div class="actor">
+						<img src="@($"https://image.tmdb.org/t/p/w500{actor.ProfilePath}")" alt="@actor.Name"/> 
+						<span>@actor.Name as @actor.Character</span>
+					</div>
 				}
-		<p><strong>Vote Average:</strong><br /> @Model.VoteAverage</p>
-		<p><strong>Vote Count:</strong><br /> @Model.VoteCount</p>
-	</div>
+			</div>
+		@* Show actors *@
+		<p><strong>Directors:</strong><br /></p>
+			<div class="directors-container">
+				@foreach (var director in Model.Directors)
+				{
+					<div class="director">
+						<img src="@($"https://image.tmdb.org/t/p/w500{director.ProfilePath}")" alt="@director.Name"/>
+						<span>@director.Name</span>
+					</div>
+				}
+			</div>
+		@if (Model.Video)
+		{
+			<p><strong>Video:</strong><br/> @(Model.Video)</p>
+		}
+		</div>
 </div>
 
 <div class="back-link">
-	@* <a asp-action="" class="btn-back">← Back to List</a> *@ @*TODO: Implement back to list button*@
+	@* <a asp-action="@ViewBag.ReturnUrl" class="btn-back">← Back to List</a> *@
 </div>
 

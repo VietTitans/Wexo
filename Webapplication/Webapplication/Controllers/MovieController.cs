@@ -7,10 +7,10 @@ namespace Webapplication.Controllers
 {
     public class MovieController : Controller
     {
-        public IActionResult Index()
-        {
-            return View("/");
-        }
+        //public IActionResult Index()
+        //{
+        //    return View("~/");
+        //}
 
         [HttpPost]
         //Uri: /Movie/Genre/{genreId}
@@ -34,11 +34,16 @@ namespace Webapplication.Controllers
 
         [HttpGet]
         //Uri: /Movie/Details/{id}
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, string returnUrl)
         {
-
             MediaDetailsResponse movieDetails = null;
+
+            //Get movie details
             var detailsResponse = await GetResponseByUri($"/movie/{id}");
+
+            //Used to redirect user back to this url, when pressing "go back" button.
+            //ViewBag.ReturnUrl = returnUrl ?? Url.Content($"/discover/movie?with_genres={genreId}");
+
 
             if (detailsResponse.IsSuccessful && detailsResponse.Content != null)
             {
@@ -50,6 +55,27 @@ namespace Webapplication.Controllers
             {
                 return NotFound();
             }
+
+            //Get credit details
+            var creditResponse = await GetResponseByUri($"/movie/{id}/credits");
+            if (creditResponse.IsSuccessStatusCode && creditResponse.Content != null)
+            {
+                var creditResult = JsonConvert.DeserializeObject<CreditResponse>(creditResponse.Content);
+
+                //Add actors to list
+                movieDetails.Actors = creditResult.Cast
+                    .Where(c => !string.IsNullOrWhiteSpace(c.Name))
+                    .Take(5)
+                    .ToList();
+
+                //Add directors to list
+                movieDetails.Directors = creditResult.Crew
+                    .Where(c => c.Job == "Director")
+                    .Distinct()
+                    .ToList();
+            }
+
+
             return View(movieDetails);
         }
 

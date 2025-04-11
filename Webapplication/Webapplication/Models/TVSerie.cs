@@ -4,8 +4,8 @@ namespace Webapplication.Models;
 
 public class TVSerie : Media
 {
-    public List<int> GenreIds { get; set; }
+    public List<int> GenreIds { get; init; }
 
     [JsonProperty("Name")]
-    public string Title { get; set; }
+    public string Title { get; init; }
 }
