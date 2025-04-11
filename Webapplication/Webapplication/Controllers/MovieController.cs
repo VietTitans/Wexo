@@ -7,10 +7,33 @@ namespace Webapplication.Controllers
 {
     public class MovieController : Controller
     {
-        //public IActionResult Index()
-        //{
-        //    return View("~/");
-        //}
+        private readonly ILogger<MovieController> _logger;
+
+        public MovieController(ILogger<MovieController> logger)
+        {
+            _logger = logger;
+        }
+        public async Task<IActionResult> Index()
+        {
+            //Index method is called when the program launches. 
+
+            //****************** GET GenreId in movie category ******************
+            //URI: https://api.themoviedb.org/3/genre/movie/list
+
+            var genres = new List<Genre>();
+            var genreListResponse = await GetResponseByUri("genre/movie/list");
+
+            if (genreListResponse.IsSuccessful && genreListResponse.Content != null)
+            {
+                var result = JsonConvert.DeserializeObject<GenreResponse>(genreListResponse.Content);
+                genres = result.Genres;
+            }
+
+            //****************** Get genre stats ******************
+            genres = await GetMoviesByGenre(genres);
+
+            return View(genres);
+        }
 
         [HttpPost]
         //Uri: /Movie/Genre/{genreId}
@@ -19,6 +42,8 @@ namespace Webapplication.Controllers
             List<Media> movieList = new();
 
             var allMoviesResponse = await GetResponseByUri($"/discover/movie?with_genres={genreId}");
+
+            TempData["PreviousGenre"] = genreId; 
 
             if (allMoviesResponse.IsSuccessful && allMoviesResponse.Content != null)
             {
@@ -42,7 +67,7 @@ namespace Webapplication.Controllers
             var detailsResponse = await GetResponseByUri($"/movie/{id}");
 
             //Used to redirect user back to this url, when pressing "go back" button.
-            //ViewBag.ReturnUrl = returnUrl ?? Url.Content($"/discover/movie?with_genres={genreId}");
+            //ViewBag.ReturnUrl = returnUrl ?? Url.Content($"/discover/movie?with_genres={TempData["PreviousGenre"]}");
 
 
             if (detailsResponse.IsSuccessful && detailsResponse.Content != null)
@@ -91,6 +116,40 @@ namespace Webapplication.Controllers
             var response = await client.GetAsync(request);
 
             return response;
+        }
+        private static async Task<List<Genre>> GetMoviesByGenre(List<Genre> genres)
+        {
+            //A list of target genres are defined by genre id
+            List<int> allowedGenreIds = new() { 28, 35, 53, 10752, 10749, 18, 80, 99, 27 };
+
+            var resultGenres = new List<Genre>();
+
+            foreach (var genreId in allowedGenreIds)
+            {
+                //URI: https://api.themoviedb.org/3/discover/movie?with_genres=GENRE_ID
+                var moviesByGenreResponse = await GetResponseByUri($"/discover/movie?with_genres={genreId}");
+
+                if (moviesByGenreResponse.IsSuccessful && moviesByGenreResponse.Content != null)
+                {
+                    var result = JsonConvert.DeserializeObject<MovieResponse>(moviesByGenreResponse.Content);
+
+                    var genreInfo = genres.FirstOrDefault(g => g.Id == genreId);
+
+                    if (genreInfo != null)
+                    {
+                        //Create genre object with the all the statistics
+                        resultGenres.Add(new Genre
+                        {
+                            Id = genreId,
+                            Name = genreInfo.Name,
+                            TotalMovieCount = result.TotalResults,
+                            Items = result.Results
+                        });
+                    }
+                }
+            }
+
+            return resultGenres;
         }
     }
 }
