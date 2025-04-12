@@ -89,14 +89,14 @@ namespace Webapplication.Controllers
 
                 //Add actors to list
                 movieDetails.Actors = creditResult.Cast
-                    .Where(c => !string.IsNullOrWhiteSpace(c.Name))
-                    .Take(5)
-                    .ToList();
+                    .Where(c => !string.IsNullOrWhiteSpace(c.Name)) //Filter to only include CastMember.Name. If condition is true, then include.
+                    .Take(5) //Display only five froom the list
+                    .ToList();//Convert to a type of List. Where and Distinct returns type of IEnumerable.
 
                 //Add directors to list
                 movieDetails.Directors = creditResult.Crew
-                    .Where(c => c.Job == "Director")
-                    .Distinct()
+                    .Where(c => c.Job == "Director") //Filter to only include crew with a job called director. 
+                    .Distinct() //Remove duplicates
                     .ToList();
             }
 
@@ -119,7 +119,8 @@ namespace Webapplication.Controllers
         }
         private static async Task<List<Genre>> GetMoviesByGenre(List<Genre> genres)
         {
-            //A list of target genres are defined by genre id
+            //A list of target genres are defined by genre id.
+            //GenreId corresponds to the provided requirements.
             List<int> allowedGenreIds = new() { 28, 35, 53, 10752, 10749, 18, 80, 99, 27 };
 
             var resultGenres = new List<Genre>();
@@ -133,6 +134,8 @@ namespace Webapplication.Controllers
                 {
                     var result = JsonConvert.DeserializeObject<MovieResponse>(moviesByGenreResponse.Content);
 
+                    //Return the first element that matches the condition regardless of
+                    //multiple matches. Otherwise return null if no matches was found. 
                     var genreInfo = genres.FirstOrDefault(g => g.Id == genreId);
 
                     if (genreInfo != null)

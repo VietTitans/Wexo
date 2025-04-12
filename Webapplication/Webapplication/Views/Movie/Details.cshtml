@@ -12,7 +12,7 @@
 	<div class="info">
 		<h1 class="title"><strong>@Model.Title</strong></h1>
 		<p><strong>Description:</strong> <br/>@Model.Overview</p>
-		<p><strong>Release year:</strong><br /> @DateTime.Parse(Model.ReleaseDate).Year<p>
+		<p><strong>Release year:</strong><br /> @DateTime.Parse(Model.ReleaseDate).Year<p> @*Display only the release year*@
 		<p><strong>Genre:</strong><br /> 
 		<p>@string.Join(", ", Model.Genres.Select(g=> g.Name))</p>
 		@* Show actors *@
