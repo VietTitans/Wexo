@@ -8,10 +8,12 @@ namespace Webapplication.Controllers
     public class MovieController : Controller
     {
         private readonly ILogger<MovieController> _logger;
+        private readonly IMediaApiService _mediaApiService;
 
-        public MovieController(ILogger<MovieController> logger)
+        public MovieController(ILogger<MovieController> logger, IMediaApiService mediaApiService)
         {
             _logger = logger;
+            _mediaApiService = mediaApiService;
         }
         public async Task<IActionResult> Index()
         {
@@ -21,7 +23,7 @@ namespace Webapplication.Controllers
             //URI: https://api.themoviedb.org/3/genre/movie/list
 
             var genres = new List<Genre>();
-            var genreListResponse = await GetResponseByUri("genre/movie/list");
+            var genreListResponse = await _mediaApiService.GetResponseByUriAsync("genre/movie/list");
 
             if (genreListResponse.IsSuccessful && genreListResponse.Content != null)
             {
@@ -41,7 +43,7 @@ namespace Webapplication.Controllers
         {
             List<Media> movieList = new();
 
-            var allMoviesResponse = await GetResponseByUri($"/discover/movie?with_genres={genreId}");
+            var allMoviesResponse = await _mediaApiService.GetResponseByUriAsync($"/discover/movie?with_genres={genreId}");
 
             TempData["PreviousGenre"] = genreId; 
 
@@ -64,7 +66,8 @@ namespace Webapplication.Controllers
             MediaDetailsResponse movieDetails = null;
 
             //Get movie details
-            var detailsResponse = await GetResponseByUri($"/movie/{id}");
+            //var detailsResponse = await GetResponseByUri($"/movie/{id}");
+            var detailsResponse = await _mediaApiService.GetResponseByUriAsync($"/movie/{id}");
 
             //Used to redirect user back to this url, when pressing "go back" button.
             //ViewBag.ReturnUrl = returnUrl ?? Url.Content($"/discover/movie?with_genres={TempData["PreviousGenre"]}");
@@ -82,7 +85,8 @@ namespace Webapplication.Controllers
             }
 
             //Get credit details
-            var creditResponse = await GetResponseByUri($"/movie/{id}/credits");
+            var creditResponse = await _mediaApiService.GetResponseByUriAsync($"/movie/{id}/credits");
+
             if (creditResponse.IsSuccessStatusCode && creditResponse.Content != null)
             {
                 var creditResult = JsonConvert.DeserializeObject<CreditResponse>(creditResponse.Content);
@@ -104,20 +108,7 @@ namespace Webapplication.Controllers
             return View(movieDetails);
         }
 
-        private static async Task<RestResponse> GetResponseByUri(string uri)
-        {
-            var options = new RestClientOptions("https://api.themoviedb.org/3/");
-            var client = new RestClient(options);
-            var request = new RestRequest(uri, Method.Get);
-
-            request.AddHeader("accept", "application/json");
-            request.AddHeader("Authorization", $"Bearer {Environment.GetEnvironmentVariable("ConnectionString")}");
-
-            var response = await client.GetAsync(request);
-
-            return response;
-        }
-        private static async Task<List<Genre>> GetMoviesByGenre(List<Genre> genres)
+        private async Task<List<Genre>> GetMoviesByGenre(List<Genre> genres)
         {
             //A list of target genres are defined by genre id.
             //GenreId corresponds to the provided requirements.
@@ -128,7 +119,7 @@ namespace Webapplication.Controllers
             foreach (var genreId in allowedGenreIds)
             {
                 //URI: https://api.themoviedb.org/3/discover/movie?with_genres=GENRE_ID
-                var moviesByGenreResponse = await GetResponseByUri($"/discover/movie?with_genres={genreId}");
+                var moviesByGenreResponse = await _mediaApiService.GetResponseByUriAsync($"/discover/movie?with_genres={genreId}");
 
                 if (moviesByGenreResponse.IsSuccessful && moviesByGenreResponse.Content != null)
                 {
